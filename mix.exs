@@ -17,7 +17,15 @@ defmodule Objects.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Objects, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext]]
+      applications: [
+        :phoenix,
+        :phoenix_pubsub,
+        :phoenix_html,
+        :cowboy,
+        :logger,
+        :gettext,
+     ]
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -34,7 +42,8 @@ defmodule Objects.Mixfile do
       {:phoenix_html, "~> 2.4"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.9"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:poison, "~> 2.1"},
     ]
   end
 end
