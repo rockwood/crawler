@@ -24,6 +24,7 @@ defmodule Objects.Mixfile do
         :cowboy,
         :logger,
         :gettext,
+        :poolboy
      ]
     ]
   end
@@ -44,6 +45,7 @@ defmodule Objects.Mixfile do
       {:gettext, "~> 0.9"},
       {:cowboy, "~> 1.0"},
       {:poison, "~> 2.1"},
+      {:poolboy, "~> 1.5"},
     ]
   end
 end
