@@ -24,7 +24,8 @@ defmodule Objects.Mixfile do
         :cowboy,
         :logger,
         :gettext,
-        :poolboy
+        :poolboy,
+        :httpoison
      ]
     ]
   end
@@ -46,6 +47,8 @@ defmodule Objects.Mixfile do
       {:cowboy, "~> 1.0"},
       {:poison, "~> 2.1"},
       {:poolboy, "~> 1.5"},
+      {:floki, "~> 0.8"},
+      {:httpoison, "~> 0.8"},
     ]
   end
 end

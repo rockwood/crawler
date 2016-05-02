@@ -2,6 +2,7 @@ defmodule CrawlerTest do
   use ExUnit.Case
 
   test "start" do
-    assert Crawler.fetch("http://example.com") == "WooHoo! http://example.com"
+    page = Crawler.fetch("http://example.com")
+    assert hd(page.links) == "http://www.iana.org/domains/example"
   end
 end
