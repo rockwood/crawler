@@ -10,12 +10,11 @@ defmodule Crawler.Worker do
     {:ok, state}
   end
 
-  def fetch(pid, url) do
-    GenServer.call(pid, {:fetch, url})
+  def process_page(pid, page) do
+    GenServer.call(pid, {:fetch, page}, :infinity)
   end
 
-  def handle_call({:fetch, url}, _from, state) do
-    page = Coordinator.fetch(url)
-    {:reply, page, state}
+  def handle_call({:fetch, page}, _from, state) do
+    {:reply, Coordinator.process_page(page), state}
   end
 end
