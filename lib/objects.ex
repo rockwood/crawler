@@ -8,7 +8,7 @@ defmodule Objects do
 
     children = [
       supervisor(Objects.Endpoint, []),
-      worker(Crawler, []),
+      supervisor(Crawler.Supervisor, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
