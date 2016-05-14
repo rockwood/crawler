@@ -8,3 +8,6 @@ config :objects, Objects.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :objects, Crawler,
+  adapter: Crawler.FakeAdapter
