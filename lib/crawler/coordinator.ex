@@ -1,5 +1,6 @@
 defmodule Crawler.Coordinator do
   alias Crawler.{Parser, Page, PageState, Link, LinkState, Worker}
+  require Logger
 
   @pool_name :crawler
   @config Application.get_env(:objects, Crawler)
@@ -18,6 +19,7 @@ defmodule Crawler.Coordinator do
 
   def process_page(page) do
     page
+    |> log
     |> adapter.get
     |> Parser.parse
     |> PageState.update
@@ -37,6 +39,11 @@ defmodule Crawler.Coordinator do
       end
     end
 
+    page
+  end
+
+  defp log(page) do
+    Logger.info("Crawling: #{page.uri}")
     page
   end
 
