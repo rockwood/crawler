@@ -15,9 +15,8 @@ defmodule Crawler.PageState do
 
   def create(page) do
     Agent.get_and_update __MODULE__, fn(pages) ->
-      new_page = page
-      |> Map.put(:id, Enum.count(pages))
-      |> Notifier.notify
+      new_page = Map.put(page, :id, Enum.count(pages))
+      Notifier.notify({:page, new_page})
       {new_page, Map.put(pages, "#{new_page.uri}", new_page)}
     end
   end

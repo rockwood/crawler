@@ -11,18 +11,17 @@ defmodule Crawler.Notifier do
     GenServer.call(@name, {:register, callback})
   end
 
-  def notify(page) do
-    GenServer.call(@name, {:notify, page})
-    page
+  def notify(update) do
+    GenServer.call(@name, {:notify, update})
   end
 
   def handle_call({:register, callback}, _from, callbacks) do
     {:reply, :ok, [callback | callbacks]}
   end
 
-  def handle_call({:notify, page}, _from, callbacks) do
+  def handle_call({:notify, update}, _from, callbacks) do
     Enum.each callbacks, fn(callback) ->
-      callback.(page)
+      callback.(update)
     end
     {:reply, :ok, callbacks}
   end

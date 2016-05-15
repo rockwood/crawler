@@ -1,10 +1,13 @@
 defmodule Crawler.LinkState do
+  alias Crawler.Notifier
+
   def start_link do
     Agent.start_link(fn -> [] end, name: __MODULE__)
   end
 
   def add(link) do
     Agent.update(__MODULE__, fn(state) -> [link | state] end)
+    Notifier.notify({:link, link})
   end
 
   def all do

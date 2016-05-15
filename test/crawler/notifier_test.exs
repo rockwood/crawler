@@ -11,12 +11,12 @@ defmodule Crawler.NotifierTest do
   end
 
   test "notify: when a callback is registered", %{page: page} do
-    Notifier.register fn (saved_page) ->
-      send @process_name, {:handle_add_page, saved_page}
+    Notifier.register fn (update) ->
+      send @process_name, {:handle_update, update}
     end
 
-    Notifier.notify(page)
+    Notifier.notify({:page, page})
 
-    assert_received {:handle_add_page, page}
+    assert_received {:handle_update, {:page, page}}
   end
 end
