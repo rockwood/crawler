@@ -11,13 +11,15 @@ defmodule CrawlerTest do
   end
 
   test "run" do
-    Crawler.run @url, fn(fetched_page) ->
-      send @process_name, {:handle_add_page, fetched_page}
+    Crawler.on_update fn(update) ->
+      send @process_name, {:handle_update, update}
     end
 
-    assert_received {:handle_add_page, %{uri: %{ path: "/page_1.html" }}}
-    assert_received {:handle_add_page, %{uri: %{ path: "/page_2.html" }}}
-    assert_received {:handle_add_page, %{uri: %{ path: "/page_3.html" }}}
-    assert_received {:handle_add_page, %{uri: %{ path: "/page_4.html" }}}
+    Crawler.run(@url)
+
+    assert_received {:handle_update, {:page, %{uri: %{ path: "/page_1.html" }}}}
+    assert_received {:handle_update, {:page, %{uri: %{ path: "/page_2.html" }}}}
+    assert_received {:handle_update, {:page, %{uri: %{ path: "/page_3.html" }}}}
+    assert_received {:handle_update, {:page, %{uri: %{ path: "/page_4.html" }}}}
   end
 end

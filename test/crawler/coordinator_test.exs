@@ -10,7 +10,7 @@ defmodule Crawler.CoordinatorTest do
   end
 
   test "fetch" do
-    assert Enum.count(PageState.all) == 3
-    assert Enum.count(LinkState.all) == 2
+    assert Enum.count(PageState.all) == 4
+    assert Enum.count(LinkState.all) == 6
   end
 end
