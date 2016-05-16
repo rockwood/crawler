@@ -5,7 +5,7 @@ defmodule Crawler.Application do
   @pool_config [
     {:name, {:local, @pool_name}},
     {:worker_module, Crawler.Worker},
-    {:size, 20},
+    {:size, 10},
     {:max_overflow, 1}
   ]
 
