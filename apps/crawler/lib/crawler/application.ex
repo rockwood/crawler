@@ -17,6 +17,7 @@ defmodule Crawler.Application do
       worker(Crawler.PageState, []),
       worker(Crawler.LinkState, []),
       worker(Crawler.Notifier, []),
+      worker(Crawler.Registry, []),
     ]
 
     opts = [strategy: :one_for_one, name: Crawler.Supervisor]
