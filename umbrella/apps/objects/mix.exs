@@ -5,6 +5,10 @@ defmodule Objects.Mixfile do
     [app: :objects,
      version: "0.0.1",
      elixir: "~> 1.0",
+     build_path: "../../_build",
+     config_path: "../../config/config.exs",
+     deps_path: "../../deps",
+     lockfile: "../../mix.lock",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -24,8 +28,7 @@ defmodule Objects.Mixfile do
         :cowboy,
         :logger,
         :gettext,
-        :poolboy,
-        :httpoison
+        :crawler
      ]
     ]
   end
@@ -46,9 +49,7 @@ defmodule Objects.Mixfile do
       {:gettext, "~> 0.9"},
       {:cowboy, "~> 1.0"},
       {:poison, "~> 2.1"},
-      {:poolboy, "~> 1.5"},
-      {:floki, "~> 0.8"},
-      {:httpoison, "~> 0.8"},
+      {:crawler, in_umbrella: true}
     ]
   end
 end
