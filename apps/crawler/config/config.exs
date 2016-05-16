@@ -3,6 +3,7 @@
 use Mix.Config
 
 config :crawler,
-  adapter: Crawler.HttpAdapter
+  adapter: Crawler.HttpAdapter,
+  pool_name: :crawler_pool
 
 import_config "#{Mix.env}.exs"

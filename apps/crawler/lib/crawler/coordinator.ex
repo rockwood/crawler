@@ -2,7 +2,7 @@ defmodule Crawler.Coordinator do
   alias Crawler.{Parser, Page, PageState, Link, LinkState, Worker}
   require Logger
 
-  @pool_name :crawler
+  @pool_name Application.get_env(:crawler, :pool_name)
 
   def fetch(page) do
     if !Page.fetched?(page) do

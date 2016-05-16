@@ -1,7 +1,7 @@
 defmodule Crawler.Application do
   use Application
 
-  @pool_name :crawler
+  @pool_name Application.get_env(:crawler, :pool_name)
   @pool_config [
     {:name, {:local, @pool_name}},
     {:worker_module, Crawler.Worker},
