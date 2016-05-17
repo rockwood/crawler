@@ -21,7 +21,6 @@ defmodule Crawler.Fetcher do
     fetched_page = page
     |> @adapter.get
     |> Parser.parse
-    |> Map.put(:fetched?, true)
 
     {:ok, fetched_page}
   end

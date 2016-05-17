@@ -7,7 +7,6 @@ defmodule Crawler.FetcherTest do
     |> Page.from_url()
     |> Fetcher.fetch
 
-    assert page.fetched?
     assert [%{path: "/page_2.html"}, %{path: "/page_3.html"}] = page.hrefs
   end
 end
