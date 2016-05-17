@@ -8,9 +8,4 @@ defmodule Crawler.Page do
   def fetched?(page) do
     page.body != ""
   end
-
-  def valid?(%{uri: %{path: nil}}), do: true
-  def valid?(page) do
-    !String.match?(page.uri.path, ~r/(.pdf|.xml|.png|.jpg|.gif)/)
-  end
 end
