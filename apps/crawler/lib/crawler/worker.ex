@@ -1,6 +1,6 @@
 defmodule Crawler.Worker do
   use GenServer
-  alias Crawler.Coordinator
+  alias Crawler.Fetcher
 
   def start_link(_args) do
     GenServer.start_link(__MODULE__, [])
@@ -15,6 +15,6 @@ defmodule Crawler.Worker do
   end
 
   def handle_call({:fetch, page}, _from, state) do
-    {:reply, Coordinator.process_page(page), state}
+    {:reply, Fetcher.do_fetch(page), state}
   end
 end
