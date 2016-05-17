@@ -1,10 +1,6 @@
 defmodule Crawler.State do
-  defstruct callback: nil, pages: %{}, links: []
+  defstruct root: "", pages: %{}, links: [], callback: &__MODULE__.default_callback/1
   alias Crawler.{Page, Link}
-
-  def from_callback(callback) do
-    struct(__MODULE__, %{callback: callback})
-  end
 
   def process_page(state, page) do
     process_hrefs(state, page)
@@ -12,18 +8,32 @@ defmodule Crawler.State do
 
   defp process_hrefs(state, page) do
     Enum.reduce(page.hrefs, state, fn(href, state) ->
-      {pages, target_page} = get_or_put_page(state.pages, href)
-      new_link = %Link{source: page.id, target: target_page.id}
-      %{state | pages: pages, links: [new_link | state.links]}
+      process_uri(state, page, href)
     end)
   end
 
-  defp get_or_put_page(pages, uri) do
-    if existing_page = pages["#{uri}"] do
-      {pages, existing_page}
+  defp process_uri(state, source_page, uri) do
+    {state, target_page} = get_or_put_page(state, uri)
+    put_link(state, source_page, target_page)
+  end
+
+  defp get_or_put_page(state, uri) do
+    if existing_page = state.pages["#{uri}"] do
+      {state, existing_page}
     else
-      new_page = %Page{id: Enum.count(pages), uri: uri}
-      {Map.put(pages, "#{new_page.uri}", new_page), new_page}
+      put_page(state, uri)
     end
   end
+
+  defp put_page(state, uri) do
+    new_page = %Page{id: Enum.count(state.pages), uri: uri}
+    {%{state | pages: Map.put(state.pages, "#{new_page.uri}", new_page)}, new_page}
+  end
+
+  defp put_link(state, source_page, target_page) do
+    new_link = %Link{source: source_page.id, target: target_page.id}
+    %{state | links: [new_link, state.links]}
+  end
+
+  def default_callback(_), do: nil
 end
