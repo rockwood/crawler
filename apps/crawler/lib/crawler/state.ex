@@ -35,7 +35,7 @@ defmodule Crawler.State do
   defp put_link(state, source_page, target_page) do
     new_link = %Link{source: source_page.id, target: target_page.id}
     state.callback.({:link, new_link})
-    %{state | links: [new_link, state.links]}
+    %{state | links: [new_link | state.links]}
   end
 
   def default_callback(_), do: nil
