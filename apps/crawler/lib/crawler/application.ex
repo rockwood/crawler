@@ -14,7 +14,6 @@ defmodule Crawler.Application do
 
     children = [
       :poolboy.child_spec(@pool_name, @pool_config, []),
-      worker(Crawler.Notifier, []),
       worker(Crawler.Registry, []),
     ]
 
