@@ -28,6 +28,7 @@ defmodule Crawler.State do
   defp put_page(state, uri) do
     new_page = %Page{id: Enum.count(state.pages), uri: uri}
     state.callback.({:page, new_page})
+    Crawler.fetch_page(state, new_page)
     {%{state | pages: Map.put(state.pages, "#{new_page.uri}", new_page)}, new_page}
   end
 
