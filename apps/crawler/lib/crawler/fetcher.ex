@@ -16,16 +16,16 @@ defmodule Crawler.Fetcher do
   end
 
   def do_fetch(page) do
-    log(page)
-
     fetched_page = page
     |> @adapter.get
     |> Parser.parse
+
+    log(fetched_page)
 
     {:ok, fetched_page}
   end
 
   defp log(page) do
-    Logger.info("Fetching: #{page.uri}")
+    Logger.info("Fetching: #{page.uri}, links: #{Enum.count(page.hrefs)}")
   end
 end
