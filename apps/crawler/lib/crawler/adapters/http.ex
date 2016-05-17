@@ -20,6 +20,8 @@ defmodule Crawler.HttpAdapter do
     case :proplists.get_value("Content-Type", response.headers) do
       "text/html; charset=utf-8" ->
         Map.put(page, :body, response.body)
+      "text/html" ->
+        Map.put(page, :body, response.body)
       _ ->
         page
     end
