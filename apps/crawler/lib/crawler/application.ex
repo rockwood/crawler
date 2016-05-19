@@ -14,12 +14,11 @@ defmodule Crawler.Application do
 
     children = [
       :poolboy.child_spec(@pool_name, @pool_config, []),
-      worker(Crawler.PageState, []),
-      worker(Crawler.LinkState, []),
-      worker(Crawler.Notifier, []),
+      worker(Crawler.Registry, []),
+      supervisor(Crawler.Supervisor, [])
     ]
 
-    opts = [strategy: :one_for_one, name: Crawler.Supervisor]
+    opts = [strategy: :one_for_one]
     Supervisor.start_link(children, opts)
   end
 end
