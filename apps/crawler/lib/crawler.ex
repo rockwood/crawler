@@ -2,8 +2,7 @@ defmodule Crawler do
   alias Crawler.{Page, State, Fetcher}
   use GenServer
 
-  def start_link(url, callback) do
-    state = %State{callback: callback, root: url}
+  def start_link(state) do
     GenServer.start_link(__MODULE__, state, name: via_tuple(state))
   end
 

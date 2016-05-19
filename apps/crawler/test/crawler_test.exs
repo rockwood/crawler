@@ -8,7 +8,7 @@ defmodule CrawlerTest do
   setup do
     Process.register(self, @process_name)
 
-    Crawler.start_link @url, fn(update) ->
+    Crawler.Supervisor.start_crawler @url, fn(update) ->
       send(@process_name, update)
     end
     :ok

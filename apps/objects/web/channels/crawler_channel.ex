@@ -6,7 +6,7 @@ defmodule Objects.CrawlerChannel do
   end
 
   def handle_in("crawl", %{"url" => url}, socket) do
-    Crawler.start_link url, fn(update) ->
+    Crawler.Supervisor.start_crawler url, fn(update) ->
       case update do
         {:page, new_page} ->
           push(socket, "new_page", Map.take(new_page, [:id, :uri]))

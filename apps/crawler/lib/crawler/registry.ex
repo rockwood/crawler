@@ -1,20 +1,21 @@
 defmodule Crawler.Registry do
   use GenServer
+  @name :crawler_registry
 
   def start_link do
-    GenServer.start_link(__MODULE__, nil, name: :registry)
+    GenServer.start_link(__MODULE__, nil, name: @name)
   end
 
   def whereis_name(url) do
-    GenServer.call(:registry, {:whereis_name, url})
+    GenServer.call(@name, {:whereis_name, url})
   end
 
   def register_name(url, pid) do
-    GenServer.call(:registry, {:register_name, url, pid})
+    GenServer.call(@name, {:register_name, url, pid})
   end
 
   def unregister_name(url) do
-    GenServer.cast(:registry, {:unregister_name, url})
+    GenServer.cast(@name, {:unregister_name, url})
   end
 
   def send(url, message) do
