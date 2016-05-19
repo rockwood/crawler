@@ -28,6 +28,6 @@ defmodule Crawler.Fetcher do
 
 
   defp log(page) do
-    Logger.info("Fetching: #{page.uri}, links: #{Enum.count(page.hrefs)}")
+    Logger.info("Fetching: #{page.uri}")
   end
 end
